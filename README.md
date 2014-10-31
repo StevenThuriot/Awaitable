@@ -17,7 +17,7 @@ Silly sample class
 ```csharp
 public class SynchronousModel()
 {
-  public string ReadFileFromDisk(bool useFileReader = true, bool readToEnd = true)
+  public string ReadFileFromDisk(bool includeOptionA = true, bool includeOptionB = false, bool readToEnd = true)
   {
     //Stuff
   }
@@ -44,11 +44,14 @@ var asyncModel = model.Awaitable();
 string result = await asyncModel.ReadFileFromDisk();
 
 //Or with parameters
-string result = await asyncModel.ReadFileFromDisk(true, true);
+string result = await asyncModel.ReadFileFromDisk(true, true, true);
 
 //Named parameters work too! 
 //Parameters that aren't passed to the method, will use their default value if defined.
 string result = await asyncModel.ReadFileFromDisk(readToEnd: false); 
+
+//Mixes work fine as well!
+string result = await asyncModel.ReadFileFromDisk(true, readToEnd: false); 
 
 //Properties? No problem!
 asyncModel.Awesomeness = 9006;
