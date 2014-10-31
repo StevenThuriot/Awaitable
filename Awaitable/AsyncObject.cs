@@ -17,6 +17,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
@@ -30,6 +31,17 @@ namespace Awaitable
         public AsyncObject(T value)
         {
             _value = value;
+        }
+
+        // ReSharper disable once StaticFieldInGenericType : Generic Cache
+        private static PropertyDescriptorCollection _properties;
+
+        private static PropertyDescriptorCollection Properties
+        {
+            get
+            {
+                return _properties ?? (_properties = TypeDescriptor.GetProperties(typeof(T)));
+            }
         }
 
 
@@ -104,8 +116,8 @@ namespace Awaitable
             IEnumerable<Argument> actualArguments = null;
 
             var method = (from methodInfo in methods
-                where CompareParameters(list, methodInfo.GetParameters().ToList(), out actualArguments)
-                select methodInfo).FirstOrDefault();
+                          where CompareParameters(list, methodInfo.GetParameters().ToList(), out actualArguments)
+                          select methodInfo).FirstOrDefault();
 
             if (method == null)
                 return null;
@@ -132,6 +144,61 @@ namespace Awaitable
             result = invoker.Invoke(_value);
 
             return true;
+        }
+
+        public override bool TryGetMember(GetMemberBinder binder, out object result)
+        {
+            var proprety = Properties[binder.Name];
+            if (proprety == null)
+            {
+                result = null;
+                return false;
+            }
+
+            result = proprety.GetValue(_value);
+            return true;
+        }
+
+        public override bool TrySetMember(SetMemberBinder binder, object value)
+        {
+            var proprety = Properties[binder.Name];
+            if (proprety == null)
+            {
+                return false;
+            }
+
+            proprety.SetValue(_value, value);
+            return true;
+        }
+
+        public override bool TryConvert(ConvertBinder binder, out object result)
+        {
+            var valueType = typeof(T);
+
+            if (binder.ReturnType == valueType)
+            {
+                result = _value;
+                return true;
+            }
+
+            var destinationType = binder.ReturnType;
+
+            var descriptor = TypeDescriptor.GetConverter(valueType);
+            if (descriptor.CanConvertTo(destinationType))
+            {
+                result = descriptor.ConvertTo(_value, destinationType);
+                return true;
+            }
+
+            descriptor = TypeDescriptor.GetConverter(destinationType);
+            if (descriptor.CanConvertFrom(valueType))
+            {
+                result = descriptor.ConvertFrom(_value);
+                return true;
+            }
+
+            result = null;
+            return false;
         }
     }
 }
