@@ -17,7 +17,7 @@ Silly sample class
 ```csharp
 public class SynchronousModel()
 {
-  public string ReadFileFromDisk(bool includeOptionA = true, bool includeOptionB = false, bool readToEnd = true)
+  public string ReadFileFromDisk(bool includeA = true, bool includeB = false, bool readToEnd = true)
   {
     //Stuff
   }
