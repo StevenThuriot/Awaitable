@@ -50,7 +50,7 @@ string result = await asyncModel.ReadFileFromDisk(true, true);
 //Parameters that aren't passed to the method, will use their default value if defined.
 string result = await asyncModel.ReadFileFromDisk(readToEnd: false); 
 
-//Properties work too!
+//Properties? No problem!
 asyncModel.Awesomeness = 9006;
 
 //You can unwrap it again with a simple cast.
