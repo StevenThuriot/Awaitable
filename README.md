@@ -13,11 +13,24 @@ Awaitable is a solution for this problem. By wrapping an instance using Awaitabl
 #Usage
 
 ```csharp
+//Making a new synchronous model
 var model = new SynchronousModel();
 
-string result = model.ReadFileFromDisk(); //Executed synchronously
+//Executed synchronously
+string result = model.ReadFileFromDisk();
 
+//Making our model async
 var asyncModel = model.Awaitable();
 
-string result = await asyncModel.ReadFileFromDisk(); //Executed asynchronously
+//Executed asynchronously!!
+string result = await asyncModel.ReadFileFromDisk();
+
+//Properties work too!
+asyncModel.Awesomeness = 9006;
+
+//You can unwrap it again with a simple cast.
+SynchronousModel unwrapped = asyncModel;
+
+//Or any other cast your class supports
+string classAsString = asyncModel;
 ```
