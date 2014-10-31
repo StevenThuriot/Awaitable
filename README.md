@@ -12,18 +12,43 @@ Awaitable is a solution for this problem. By wrapping an instance using Awaitabl
 
 #Usage
 
+Silly sample class
+
+```csharp
+public class SynchronousModel()
+{
+  public string ReadFileFromDisk(bool useFileReader = true, bool readToEnd = true)
+  {
+    //Stuff
+  }
+}
+```
+
+The boring usual thing
+
 ```csharp
 //Making a new synchronous model
 var model = new SynchronousModel();
 
-//Executed synchronously
+//Executed synchronously, the usual situation.
 string result = model.ReadFileFromDisk();
+```
 
+Awesome Awaitable in action
+
+```csharp
 //Making our model async
 var asyncModel = model.Awaitable();
 
 //Executed asynchronously!!
 string result = await asyncModel.ReadFileFromDisk();
+
+//Or with parameters
+string result = await asyncModel.ReadFileFromDisk(true, true);
+
+//Named parameters work too! 
+//Parameters that aren't passed to the method, will use their default value if defined.
+string result = await asyncModel.ReadFileFromDisk(readToEnd: false); 
 
 //Properties work too!
 asyncModel.Awesomeness = 9006;
