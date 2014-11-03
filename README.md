@@ -25,6 +25,7 @@ public class SynchronousModel()
 ```
 
 The boring usual thing
+----------------------
 
 ```csharp
 //Making a new synchronous model
@@ -34,7 +35,8 @@ var model = new SynchronousModel();
 string result = model.ReadFileFromDisk();
 ```
 
-Awesome Awaitable in action
+Awaitable in action
+-------------------
 
 ```csharp
 //Making our model async
