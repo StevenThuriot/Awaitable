@@ -1,4 +1,4 @@
-Awaitable
+Awaitable [![Build status](https://ci.appveyor.com/api/projects/status/i6ngcmla8kyql8u8?svg=true)](https://ci.appveyor.com/project/StevenThuriot/awaitable)
 =========
 
 Awaitable is a Framework around `async`/`await`, letting you use it without having it spread like a virus.
@@ -12,20 +12,50 @@ Awaitable is a solution for this problem. By wrapping an instance using Awaitabl
 
 #Usage
 
+Silly sample class
+
+```csharp
+public class SynchronousModel()
+{
+  public string ReadFileFromDisk(bool includeA = true, bool includeB = false, bool readToEnd = true)
+  {
+    //Stuff
+  }
+}
+```
+
+The boring usual thing
+----------------------
+
 ```csharp
 //Making a new synchronous model
 var model = new SynchronousModel();
 
-//Executed synchronously
+//Executed synchronously, the usual situation.
 string result = model.ReadFileFromDisk();
+```
 
+Awaitable in action
+-------------------
+
+```csharp
 //Making our model async
 var asyncModel = model.Awaitable();
 
 //Executed asynchronously!!
 string result = await asyncModel.ReadFileFromDisk();
 
-//Properties work too!
+//Or with parameters
+string result = await asyncModel.ReadFileFromDisk(true, true, true);
+
+//Named parameters work too! 
+//Parameters that aren't passed to the method, will use their default value if defined.
+string result = await asyncModel.ReadFileFromDisk(readToEnd: false); 
+
+//Mixes work fine as well!
+string result = await asyncModel.ReadFileFromDisk(true, readToEnd: false); 
+
+//Properties? No problem!
 asyncModel.Awesomeness = 9006;
 
 //You can unwrap it again with a simple cast.
