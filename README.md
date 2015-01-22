@@ -1,4 +1,4 @@
-Awaitable [![Build status](https://ci.appveyor.com/api/projects/status/i6ngcmla8kyql8u8?svg=true)](https://ci.appveyor.com/project/StevenThuriot/awaitable)
+Awaitable
 =========
 
 Awaitable is a Framework around `async`/`await`, letting you use it without having it spread like a virus.
