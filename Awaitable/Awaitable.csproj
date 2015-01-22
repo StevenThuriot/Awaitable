@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -39,12 +42,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Argument.cs" />
+    <Compile Include="..\Invoker\Argument.cs">
+      <Link>Invoker\Argument.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\CallerSelector.cs">
+      <Link>Invoker\CallerSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\Constants.cs">
+      <Link>Invoker\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\InvokeHelper.cs">
+      <Link>Invoker\InvokeHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\InvokeHelper.g.cs">
+      <Link>Invoker\InvokeHelper.g.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvokeHelper.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\Invoker\MethodCaller.cs">
+      <Link>Invoker\MethodCaller.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\SelectableArgument.cs">
+      <Link>Invoker\SelectableArgument.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\TypeInfo.cs">
+      <Link>Invoker\TypeInfo.cs</Link>
+    </Compile>
     <Compile Include="AsyncObject.cs" />
     <Compile Include="AwaitableExtensions.cs" />
     <Compile Include="Invoker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SelectableArgument.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Invoker\InvokeHelper.tt">
+      <Link>Invoker\InvokeHelper.tt</Link>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>InvokeHelper.g.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
