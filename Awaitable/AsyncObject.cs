@@ -71,9 +71,8 @@ namespace Awaitable
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            //TODO: Setters
-            //proprety.SetValue(_value, value);
-            return false;
+            TypeInfo<T>.SetProperty(_value, binder.Name, value);
+            return true;
         }
 
         public override bool TryConvert(ConvertBinder binder, out object result)
