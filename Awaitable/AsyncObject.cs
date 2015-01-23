@@ -32,10 +32,13 @@ namespace Awaitable
             _value = value;
         }
 
-        private Invoker GetInvoker(InvokeMemberBinder binder, IList<object> args)
+        private Invoker GetInvoker(InvokeMemberBinder binder, IEnumerable<object> args)
         {
             var callers = TypeInfo<T>.Methods[binder.Name];
             var tuple = CallerSelector.SelectMethod(binder, args, callers);
+            
+            if (tuple == null) return null;
+
             var method = tuple.Item1;
             var actualArguments = tuple.Item2;
 
@@ -59,20 +62,17 @@ namespace Awaitable
             }
 
             result = invoker.Invoke(_value);
-
             return true;
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            result = TypeInfo<T>.GetProperty(_value, binder.Name); ;
-            return true;
+            return TypeInfo<T>.TryGetProperty(_value, binder.Name, out result);
         }
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            TypeInfo<T>.SetProperty(_value, binder.Name, value);
-            return true;
+            return TypeInfo<T>.TrySetProperty(_value, binder.Name, value);
         }
 
         public override bool TryConvert(ConvertBinder binder, out object result)
