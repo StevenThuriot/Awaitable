@@ -51,6 +51,12 @@
     <Compile Include="..\Invoker\Constants.cs">
       <Link>Invoker\Constants.cs</Link>
     </Compile>
+    <Compile Include="..\Invoker\GenericMethodCaller.cs">
+      <Link>Invoker\GenericMethodCaller.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\GenericType.cs">
+      <Link>Invoker\GenericType.cs</Link>
+    </Compile>
     <Compile Include="..\Invoker\InvokeHelper.cs">
       <Link>Invoker\InvokeHelper.cs</Link>
     </Compile>
@@ -63,8 +69,20 @@
     <Compile Include="..\Invoker\MethodCaller.cs">
       <Link>Invoker\MethodCaller.cs</Link>
     </Compile>
+    <Compile Include="..\Invoker\Reference.cs">
+      <Link>Invoker\Reference.cs</Link>
+    </Compile>
     <Compile Include="..\Invoker\SelectableArgument.cs">
       <Link>Invoker\SelectableArgument.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\SimpleParameterInfo.cs">
+      <Link>Invoker\SimpleParameterInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\TypeHash.cs">
+      <Link>Invoker\TypeHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Invoker\TypeInfo.AutoResolve.cs">
+      <Link>Invoker\TypeInfo.AutoResolve.cs</Link>
     </Compile>
     <Compile Include="..\Invoker\TypeInfo.cs">
       <Link>Invoker\TypeInfo.cs</Link>

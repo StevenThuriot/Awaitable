@@ -32,9 +32,9 @@ namespace Awaitable
             _value = value;
         }
 
-        private Invoker GetInvoker(InvokeMemberBinder binder, IEnumerable<object> args)
+        private static Invoker GetInvoker(InvokeMemberBinder binder, IEnumerable<object> args)
         {
-            var callers = TypeInfo<T>.Methods[binder.Name];
+            var callers = TypeInfo<T>.GetMethod(binder.Name);
             var tuple = CallerSelector.SelectMethod(binder, args, callers);
             
             if (tuple == null) return null;
